@@ -19,6 +19,12 @@ class _LocationState extends State<Location> {
   LatLng? pinLocation;
   final MapController _mapController = MapController();
   TextEditingController searchController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    getCurrentLocation();
+  }
+
   Future<void> getCurrentLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -94,87 +100,90 @@ class _LocationState extends State<Location> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 350, // or a specific height
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: searchController,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter place name',
-                      border: OutlineInputBorder(),
+    return Scaffold(
+      appBar: AppBar(),
+      body: SizedBox(
+        height: 350, // or a specific height
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: searchController,
+                      decoration: const InputDecoration(
+                        hintText: 'Enter place name',
+                        border: OutlineInputBorder(),
+                      ),
                     ),
                   ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () async {
-                    final placeName = searchController.text;
-                    if (placeName.isNotEmpty) {
-                      LatLng? newLocation =
-                          await getCoordinatesFromPlace(placeName);
-                      if (newLocation != null) {
-                        _moveToLocation(
-                            newLocation); // Move to the searched location
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Location not found'),
-                          ),
-                        );
-                      }
-                    }
-                  },
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: userLatitude != null && userLongitude != null
-                ? FlutterMap(
-                    mapController: _mapController, // Pass the controller here
-                    options: MapOptions(
-                      initialCenter:
-                          pinLocation ?? LatLng(userLatitude!, userLongitude!),
-                      initialZoom: 13,
-                      onTap: (tapPosition, point) {
-                        setState(() {
-                          pinLocation = point;
-                          //
-                        });
-                      },
-                    ),
-                    children: [
-                      TileLayer(
-                        urlTemplate:
-                            'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                        userAgentPackageName: 'com.example.app',
-                      ),
-                      if (pinLocation != null)
-                        MarkerLayer(
-                          markers: [
-                            Marker(
-                              width: 80.0,
-                              height: 80.0,
-                              point: pinLocation!,
-                              child: const Icon(
-                                Icons.location_pin,
-                                color: Colors.red,
-                                size: 40,
-                              ),
+                  IconButton(
+                    icon: const Icon(Icons.search),
+                    onPressed: () async {
+                      final placeName = searchController.text;
+                      if (placeName.isNotEmpty) {
+                        LatLng? newLocation =
+                            await getCoordinatesFromPlace(placeName);
+                        if (newLocation != null) {
+                          _moveToLocation(
+                              newLocation); // Move to the searched location
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Location not found'),
                             ),
-                          ],
+                          );
+                        }
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: userLatitude != null && userLongitude != null
+                  ? FlutterMap(
+                      mapController: _mapController, // Pass the controller here
+                      options: MapOptions(
+                        initialCenter: pinLocation ??
+                            LatLng(userLatitude!, userLongitude!),
+                        initialZoom: 13,
+                        onTap: (tapPosition, point) {
+                          setState(() {
+                            pinLocation = point;
+                            //
+                          });
+                        },
+                      ),
+                      children: [
+                        TileLayer(
+                          urlTemplate:
+                              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                          userAgentPackageName: 'com.example.app',
                         ),
-                    ],
-                  )
-                : const Center(child: CircularProgressIndicator()),
-          ),
-        ],
+                        if (pinLocation != null)
+                          MarkerLayer(
+                            markers: [
+                              Marker(
+                                width: 80.0,
+                                height: 80.0,
+                                point: pinLocation!,
+                                child: const Icon(
+                                  Icons.location_pin,
+                                  color: Colors.red,
+                                  size: 40,
+                                ),
+                              ),
+                            ],
+                          ),
+                      ],
+                    )
+                  : const Center(child: CircularProgressIndicator()),
+            ),
+          ],
+        ),
       ),
     );
   }
