@@ -55,6 +55,17 @@ class DatabaseHelper {
       updated_at TEXT NOT NULL
     )
   ''');
+    await db.execute('''
+    CREATE TABLE system_theme(
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      usr_id INTEGER NOT NULL,
+      name TEXT NOT NULL,
+      system_name TEXT NOT NULL,
+      system_logo_path TEXT NOT NULL,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    )
+  ''');
   }
 
   Future<int> createTheme(
@@ -97,6 +108,29 @@ class DatabaseHelper {
         'tile_path': tilePath,
         'latitude': latitude,
         'longitude': longitude,
+        'created_at': createdAt,
+        'updated_at': updatedAt,
+      },
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<int> saveSystemTheme(
+    int usrID,
+    String name,
+    String systemName,
+    String systemLogoPath,
+    String createdAt,
+    String updatedAt,
+  ) async {
+    final db = await database;
+    return await db.insert(
+      'location',
+      {
+        'usr_id': usrID,
+        'name': name,
+        'system_name': systemName,
+        'system_logo_path': systemLogoPath,
         'created_at': createdAt,
         'updated_at': updatedAt,
       },
