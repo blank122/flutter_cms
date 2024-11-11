@@ -52,11 +52,11 @@ class CustomDrawer extends StatelessWidget {
                         ),
                         trailing: const Icon(Icons.map),
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Location()),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => const Location()),
+                          // );
                         },
                       ),
                     ],
