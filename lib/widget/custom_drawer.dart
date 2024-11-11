@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cms/widget/location.dart';
 import 'package:sizer/sizer.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -51,13 +52,11 @@ class CustomDrawer extends StatelessWidget {
                         ),
                         trailing: const Icon(Icons.map),
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) =>
-                          //         ThemeSettings(onThemeUpdated: _updateTheme),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Location()),
+                          );
                         },
                       ),
                     ],
