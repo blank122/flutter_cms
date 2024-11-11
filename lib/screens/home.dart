@@ -13,12 +13,20 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
+      drawer: const CustomDrawer(),
       body: const Column(
         children: [
           Text('Home Screen'),
         ],
       ),
-      drawer: const CustomDrawer(),
+      bottomNavigationBar: BottomNavigationBar(
+        // backgroundColor: themeService.bottomNavBarColor,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings), label: 'Settings'),
+        ],
+      ),
     );
   }
 }
