@@ -36,6 +36,42 @@ class CustomDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
+                  "User",
+                  style:
+                      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(8.0.sp),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: const Text(
+                          "Location",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        trailing: const Icon(Icons.map),
+                        onTap: () {
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) =>
+                          //         ThemeSettings(onThemeUpdated: _updateTheme),
+                          //   ),
+                          // );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
                   "More actions",
                   style:
                       TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
