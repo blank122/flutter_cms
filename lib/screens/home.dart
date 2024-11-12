@@ -15,8 +15,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      drawer: const CustomDrawer(), //pass the value of the drawer color
+      appBar: AppBar(
+        title: const Text('Home'),
+        // backgroundColor: ,
+      ), //appbar title(page title), color
+      drawer:
+          const CustomDrawer(), //pass the value of the drawer color, image, system title
       body: const Column(
         children: [
           Text('Home Screen'),
