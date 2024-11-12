@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cms/screens/create_themes_view.dart';
 import 'package:flutter_cms/widget/location.dart';
 import 'package:sizer/sizer.dart';
 
@@ -87,13 +88,12 @@ class CustomDrawer extends StatelessWidget {
                         ),
                         trailing: const Icon(Icons.settings),
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) =>
-                          //         ThemeSettings(onThemeUpdated: _updateTheme),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const CreateThemesView(),
+                            ),
+                          );
                         },
                       ),
                     ],
