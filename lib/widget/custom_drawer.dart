@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cms/screens/create_themes_view.dart';
 import 'package:flutter_cms/widget/location.dart';
+import 'package:gap/gap.dart';
 import 'package:sizer/sizer.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -13,7 +14,7 @@ class CustomDrawer extends StatelessWidget {
     return Drawer(
       // backgroundColor: Theme.of(context).drawerTheme.backgroundColor,
       child: ListView(
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.all(16.sp),
         children: [
           // DrawerHeader(
           //   child: Padding(
@@ -21,6 +22,7 @@ class CustomDrawer extends StatelessWidget {
           //     child: Image.asset('assets/images/logo.png'), //same here
           //   ),
           // ),
+          Gap(1.5.h),
           Padding(
             padding: EdgeInsets.all(8.0.sp),
             child: Text(
