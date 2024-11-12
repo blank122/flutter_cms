@@ -68,9 +68,25 @@ class DatabaseHelper {
   ''');
   }
 
-  Future<int> createTheme(
+  Future<int> createTheme(int usrID, String name, String systemLogoPath,
+      String createdAt, String updatedAt) async {
+    final db = await database;
+    return await db.insert(
+      'themes',
+      {
+        'usr_id': usrID,
+        'theme_name': name,
+        'system_logo_path': systemLogoPath,
+        'created_at': createdAt,
+        'updated_at': updatedAt,
+      },
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<int> createSystemTheme(
       int usrID,
-      String themeName,
+      String name,
       String appBarColor,
       String bottomNavColor,
       String drawerColor,
@@ -78,10 +94,10 @@ class DatabaseHelper {
       String updatedAt) async {
     final db = await database;
     return await db.insert(
-      'themes',
+      'system_theme',
       {
         'usr_id': usrID,
-        'theme_name': themeName,
+        'name': name,
         'app_bar_color': appBarColor,
         'bottom_nav_bar_color': bottomNavColor,
         'drawer_color': drawerColor,
@@ -142,6 +158,15 @@ class DatabaseHelper {
     final db = await database;
     return await db.query(
       'themes',
+      where: 'usr_id = ?',
+      whereArgs: [userID],
+    );
+  }
+
+  Future<List<Map<String, dynamic>>> getSystemThemes(int userID) async {
+    final db = await database;
+    return await db.query(
+      'system_theme',
       where: 'usr_id = ?',
       whereArgs: [userID],
     );
