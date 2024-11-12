@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cms/widget/custom_bottom_nav.dart';
 import 'package:flutter_cms/widget/custom_drawer.dart';
 
 class Home extends StatefulWidget {
@@ -9,24 +10,19 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  //call the database values
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      drawer: const CustomDrawer(),
+      drawer: const CustomDrawer(), //pass the value of the drawer color
       body: const Column(
         children: [
           Text('Home Screen'),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        // backgroundColor: themeService.bottomNavBarColor,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: 'Settings'),
-        ],
-      ),
+      bottomNavigationBar: const CustomBottomNav(), //pass the color
     );
   }
 }
