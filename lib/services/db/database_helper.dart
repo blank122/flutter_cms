@@ -66,25 +66,20 @@ class DatabaseHelper {
       updated_at TEXT NOT NULL
     )
   ''');
+    await db.execute('''
+    CREATE TABLE system_title(
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      usr_id INTEGER NOT NULL,
+      name TEXT NOT NULL,
+      system_name TEXT NOT NULL,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    )
+  ''');
   }
 
-  Future<int> createTheme(int usrID, String name, String systemLogoPath,
-      String createdAt, String updatedAt) async {
-    final db = await database;
-    return await db.insert(
-      'themes',
-      {
-        'usr_id': usrID,
-        'theme_name': name,
-        'system_logo_path': systemLogoPath,
-        'created_at': createdAt,
-        'updated_at': updatedAt,
-      },
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
-  }
-
-  Future<int> createSystemTheme(
+//savings themes
+  Future<int> saveThemes(
       int usrID,
       String name,
       String appBarColor,
@@ -94,7 +89,7 @@ class DatabaseHelper {
       String updatedAt) async {
     final db = await database;
     return await db.insert(
-      'system_theme',
+      'themes',
       {
         'usr_id': usrID,
         'name': name,
@@ -108,6 +103,7 @@ class DatabaseHelper {
     );
   }
 
+  //saving user location
   Future<int> saveLocation(
     int usrID,
     String tilePath,
@@ -131,6 +127,7 @@ class DatabaseHelper {
     );
   }
 
+//saving system themes
   Future<int> saveSystemTheme(
     int usrID,
     String name,
@@ -141,12 +138,33 @@ class DatabaseHelper {
   ) async {
     final db = await database;
     return await db.insert(
-      'location',
+      'system_themes',
       {
         'usr_id': usrID,
         'name': name,
         'system_name': systemName,
         'system_logo_path': systemLogoPath,
+        'created_at': createdAt,
+        'updated_at': updatedAt,
+      },
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<int> saveSystemThemeTitle(
+    int usrID,
+    String name,
+    String systemName,
+    String createdAt,
+    String updatedAt,
+  ) async {
+    final db = await database;
+    return await db.insert(
+      'system_title',
+      {
+        'usr_id': usrID,
+        'name': name,
+        'system_name': systemName,
         'created_at': createdAt,
         'updated_at': updatedAt,
       },
@@ -176,6 +194,15 @@ class DatabaseHelper {
     final db = await database;
     return await db.query(
       'location',
+      where: 'usr_id = ?',
+      whereArgs: [userID],
+    );
+  }
+
+  Future<List<Map<String, dynamic>>> getSystemThemesTitle(int userID) async {
+    final db = await database;
+    return await db.query(
+      'system_title',
       where: 'usr_id = ?',
       whereArgs: [userID],
     );
