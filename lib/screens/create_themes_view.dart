@@ -11,12 +11,26 @@ class CreateThemesView extends StatefulWidget {
 }
 
 class _CreateThemesViewState extends State<CreateThemesView> {
+  void saveThemeSettings(String appBar, String drawer, String bottomNav) {
+    // Display a snackbar to show saved settings
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          "Theme settings saved! AppBar: $appBar, Drawer: $drawer, Bottom Nav: $bottomNav",
+        ),
+      ),
+    );
+
+    // Here you can add code to save the settings in SQLite or any other local storage
+  }
+
   @override
   Widget build(BuildContext context) {
-    String appBarColor = '0xFFFFFFFF'; // Default color for AppBar
-    String drawerColor = '0xFFFFFFFF'; // Default color for Drawer
-    String bottomNavColor =
-        '0xFFFFFFFF'; // Default color for Bottom Navigation Bar
+    // Default color for Bottom Navigation Bar
+    String appBarColor = '0xFFFFFFFF';
+    String drawerColor = '0xFFFFFFFF';
+    String bottomNavColor = '0xFFFFFFFF';
+
     return Scaffold(
       appBar: const CustomAppBar(
         title: 'Create Themes',
@@ -39,6 +53,7 @@ class _CreateThemesViewState extends State<CreateThemesView> {
             onChanged: (color) {
               setState(() {
                 appBarColor = color;
+                print('color appbar: $color');
               });
             },
           ),
@@ -51,7 +66,7 @@ class _CreateThemesViewState extends State<CreateThemesView> {
             selectedColor: bottomNavColor,
             onChanged: (color) {
               setState(() {
-                appBarColor = color;
+                bottomNavColor = color;
               });
             },
           ),
@@ -64,14 +79,16 @@ class _CreateThemesViewState extends State<CreateThemesView> {
             selectedColor: drawerColor,
             onChanged: (color) {
               setState(() {
-                appBarColor = color;
+                drawerColor = color;
               });
             },
           ),
           Gap(1.h),
           Center(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                saveThemeSettings(appBarColor, drawerColor, bottomNavColor);
+              },
               child: const Text("Save Theme Settings"),
             ),
           ),
