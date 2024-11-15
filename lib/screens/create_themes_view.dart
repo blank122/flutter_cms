@@ -11,6 +11,9 @@ class CreateThemesView extends StatefulWidget {
 }
 
 class _CreateThemesViewState extends State<CreateThemesView> {
+  String appBarColor = 'White';
+  String drawerColor = 'White';
+  String bottomNavColor = 'White';
   void saveThemeSettings(String appBar, String drawer, String bottomNav) {
     // Display a snackbar to show saved settings
     ScaffoldMessenger.of(context).showSnackBar(
@@ -27,10 +30,6 @@ class _CreateThemesViewState extends State<CreateThemesView> {
   @override
   Widget build(BuildContext context) {
     // Default color for Bottom Navigation Bar
-    String appBarColor = '0xFFFFFFFF';
-    String drawerColor = '0xFFFFFFFF';
-    String bottomNavColor = '0xFFFFFFFF';
-
     return Scaffold(
       appBar: const CustomAppBar(
         title: 'Create Themes',
@@ -101,16 +100,18 @@ class _CreateThemesViewState extends State<CreateThemesView> {
 class ColorDropdown extends StatefulWidget {
   final String selectedColor;
   final Function(String) onChanged;
-  const ColorDropdown(
-      {super.key, required this.selectedColor, required this.onChanged});
+
+  const ColorDropdown({
+    Key? key,
+    required this.selectedColor,
+    required this.onChanged,
+  }) : super(key: key);
 
   @override
   ColorDropdownState createState() => ColorDropdownState();
 }
 
 class ColorDropdownState extends State<ColorDropdown> {
-  String selectedColor = 'Blue'; // Default selection
-
   @override
   Widget build(BuildContext context) {
     const Map<String, Color> bootstrapColors = {
@@ -123,32 +124,32 @@ class ColorDropdownState extends State<ColorDropdown> {
       'White': Color(0xFFFFFFFF),
       'Yellow': Color(0xFFFFC107),
     };
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: DropdownButtonFormField<String>(
-        value: selectedColor,
+        value: widget.selectedColor, // Use the color passed from the parent
         items: bootstrapColors.entries.map((entry) {
           return DropdownMenuItem<String>(
             value: entry.key,
             child: Row(
               children: [
-                // Color indicator
                 Container(
                   width: 24,
                   height: 24,
                   color: entry.value,
                 ),
                 const SizedBox(width: 8),
-                // Color name
                 Text(entry.key),
               ],
             ),
           );
         }).toList(),
         onChanged: (value) {
-          setState(() {
-            selectedColor = value!;
-          });
+          if (value != null) {
+            widget
+                .onChanged(value); // Pass the selected color back to the parent
+          }
         },
         decoration: const InputDecoration(
           border: OutlineInputBorder(),
