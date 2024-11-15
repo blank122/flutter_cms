@@ -3,20 +3,30 @@ import 'package:flutter_cms/widget/custom_app_bar.dart';
 import 'package:gap/gap.dart';
 import 'package:sizer/sizer.dart';
 
-class CreateThemesView extends StatelessWidget {
+class CreateThemesView extends StatefulWidget {
   const CreateThemesView({super.key});
 
   @override
+  State<CreateThemesView> createState() => _CreateThemesViewState();
+}
+
+class _CreateThemesViewState extends State<CreateThemesView> {
+  @override
   Widget build(BuildContext context) {
+    String appBarColor = '0xFFFFFFFF'; // Default color for AppBar
+    String drawerColor = '0xFFFFFFFF'; // Default color for Drawer
+    String bottomNavColor =
+        '0xFFFFFFFF'; // Default color for Bottom Navigation Bar
     return Scaffold(
       appBar: const CustomAppBar(
         title: 'Create Themes',
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
             "Customize Theme",
-            style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
           ),
           Gap(3.h),
           // AppBar Color Dropdown
@@ -24,23 +34,47 @@ class CreateThemesView extends StatelessWidget {
             "AppBar Color",
             style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
           ),
-          const ColorDropdown(),
-
+          ColorDropdown(
+            selectedColor: appBarColor,
+            onChanged: (color) {
+              setState(() {
+                appBarColor = color;
+              });
+            },
+          ),
           Gap(1.h),
           Text(
             "Bottom Navigation Color",
             style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
           ),
-          const ColorDropdown(),
-
+          ColorDropdown(
+            selectedColor: bottomNavColor,
+            onChanged: (color) {
+              setState(() {
+                appBarColor = color;
+              });
+            },
+          ),
           Gap(1.h),
           Text(
             "Drawer Color",
             style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
           ),
-          const ColorDropdown(),
-
+          ColorDropdown(
+            selectedColor: drawerColor,
+            onChanged: (color) {
+              setState(() {
+                appBarColor = color;
+              });
+            },
+          ),
           Gap(1.h),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {},
+              child: const Text("Save Theme Settings"),
+            ),
+          ),
         ],
       ),
     );
@@ -48,7 +82,10 @@ class CreateThemesView extends StatelessWidget {
 }
 
 class ColorDropdown extends StatefulWidget {
-  const ColorDropdown({super.key});
+  final String selectedColor;
+  final Function(String) onChanged;
+  const ColorDropdown(
+      {super.key, required this.selectedColor, required this.onChanged});
 
   @override
   ColorDropdownState createState() => ColorDropdownState();
