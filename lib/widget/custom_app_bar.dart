@@ -13,7 +13,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       // backgroundColor: themeService.bottomNavBarColor,
-      title: const Text('TITLE'),
+      title: Text(title),
     );
   }
 
