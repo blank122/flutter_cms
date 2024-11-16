@@ -46,7 +46,7 @@ class _CreateThemesViewState extends State<CreateThemesView> {
               context,
               MaterialPageRoute(builder: (context) => const Home()),
             );
-            await saveToDraft();
+            // await saveThemes();
           },
           secondaryButtonText: "Discard changes?",
           onSecondaryButtonPressed: () {
@@ -60,7 +60,7 @@ class _CreateThemesViewState extends State<CreateThemesView> {
     );
   }
 
-  Future<void> saveToDraft() async {
+  Future<void> saveThemes(String themeTitle) async {
     try {
       // Convert survey data to JSON string
 
