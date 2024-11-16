@@ -40,6 +40,7 @@ class DatabaseHelper {
         app_bar_color TEXT NOT NULL,
         bottom_nav_bar_color TEXT NOT NULL,
         drawer_color TEXT NOT NULL,
+        status INTEGER NOT NULL,
         created_at TEXT NOT NULL,
         updated_at TEXT NOT NULL
       )
@@ -85,6 +86,7 @@ class DatabaseHelper {
       String appBarColor,
       String bottomNavColor,
       String drawerColor,
+      int status,
       String createdAt,
       String updatedAt) async {
     final db = await database;
@@ -96,6 +98,7 @@ class DatabaseHelper {
         'app_bar_color': appBarColor,
         'bottom_nav_bar_color': bottomNavColor,
         'drawer_color': drawerColor,
+        'status': status,
         'created_at': createdAt,
         'updated_at': updatedAt,
       },
