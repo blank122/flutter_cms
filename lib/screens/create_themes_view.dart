@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cms/screens/home.dart';
 import 'package:flutter_cms/services/color_dropdown.dart';
 import 'package:flutter_cms/widget/custom_app_bar.dart';
-import 'package:flutter_cms/widget/reusable_alert_dialog.dart';
 import 'package:flutter_cms/widget/reusable_snackbar.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
@@ -33,28 +31,58 @@ class _CreateThemesViewState extends State<CreateThemesView> {
     // Here you can add code to save the settings in SQLite or any other local storage
   }
 
-  Future<bool?> showCustomDialog(BuildContext context) {
-    return showDialog<bool>(
+  Future<void> showSaveThemesDialog(BuildContext context) async {
+    final TextEditingController themeNameController = TextEditingController();
+
+    await showDialog<void>(
       context: context,
       builder: (context) {
-        return ReusableAlertDialog(
-          title: "Save themes?",
-          description: "Would you like to save your progress?",
-          primaryButtonText: "Save theme",
-          onPrimaryButtonPressed: () async {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const Home()),
-            );
-            // await saveThemes();
-          },
-          secondaryButtonText: "Discard changes?",
-          onSecondaryButtonPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const Home()),
-            );
-          },
+        return AlertDialog(
+          title: const Text("Save Theme"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text("Enter a name for your theme:"),
+              const SizedBox(height: 16),
+              TextField(
+                controller: themeNameController,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: "Theme Name",
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text("Cancel"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                final themeName = themeNameController.text.trim();
+                if (themeName.isEmpty) {
+                  // Optionally show a warning if the theme name is empty
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Please enter a theme name!")),
+                  );
+                  return;
+                }
+
+                // // Save the theme (replace this with your actual save logic)
+                // saveThemes(themeName);
+
+                Navigator.of(context).pop(); // Close the dialog after saving
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      content: Text("Theme '$themeName' saved successfully!")),
+                );
+              },
+              child: const Text("Save"),
+            ),
+          ],
         );
       },
     );
@@ -147,7 +175,7 @@ class _CreateThemesViewState extends State<CreateThemesView> {
           Center(
             child: ElevatedButton(
               onPressed: () {
-                saveThemeSettings(appBarColor, drawerColor, bottomNavColor);
+                showSaveThemesDialog(context);
               },
               child: const Text("Save Theme Settings"),
             ),
