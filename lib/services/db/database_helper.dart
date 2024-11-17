@@ -175,6 +175,16 @@ class DatabaseHelper {
     );
   }
 
+  Future<int> useTheme(int id, int status, String updatedAt) async {
+    final db = await database;
+    return await db.update(
+      'themes',
+      {'status': status, 'updated_at': updatedAt},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
   Future<List<Map<String, dynamic>>> getThemes(int userID) async {
     final db = await database;
     return await db.query(
