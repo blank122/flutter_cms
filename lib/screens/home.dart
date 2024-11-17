@@ -70,11 +70,11 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: CustomAppBar(
         title: "Home",
-        backgroundColor: appBarColor!,
+        backgroundColor: appBarColor ?? Colors.white,
       ),
       drawer: CustomDrawer(
-        appbarColor: appBarColor!,
-        backgroundColor: drawerColor!,
+        appbarColor: appBarColor ?? Colors.white,
+        backgroundColor: drawerColor ?? Colors.white,
       ), //pass the value of the drawer color, image, system title
       body: Column(
         children: [
@@ -85,7 +85,7 @@ class _HomeState extends State<Home> {
         ],
       ),
       bottomNavigationBar: CustomBottomNav(
-        backgroundColor: bottomNavColor!,
+        backgroundColor: bottomNavColor ?? Colors.white,
       ), //pass the color
     );
   }
