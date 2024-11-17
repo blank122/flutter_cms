@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cms/screens/create_themes_view.dart';
+import 'package:flutter_cms/screens/utility_screen/theme_card.dart';
 import 'package:flutter_cms/services/db/database_helper.dart';
 import 'package:flutter_cms/widget/custom_app_bar.dart';
-import 'package:sizer/sizer.dart';
 
 class ThemesView extends StatefulWidget {
   const ThemesView({super.key});
@@ -58,62 +58,11 @@ class _ThemesViewState extends State<ThemesView> {
                     final String createdAt = survey['created_at'];
                     final String updatedAt = survey['updated_at'];
 
-                    return SizedBox(
-                      child: Padding(
-                        padding: EdgeInsets.all(16.sp),
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          elevation: 4,
-                          shadowColor: Colors.grey.withOpacity(0.5),
-                          child: Padding(
-                            padding: EdgeInsets.all(16.sp),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Theme name: $themeName',
-                                  style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black87,
-                                  ),
-                                ),
-                                SizedBox(height: 1.h),
-                                Text(
-                                  status.toString() == '1'
-                                      ? 'Active'
-                                      : 'Inactive',
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w500,
-                                    color: status.toString() == '1'
-                                        ? Colors.green
-                                        : Colors.red,
-                                  ),
-                                ),
-                                SizedBox(height: 1.h),
-                                Text(
-                                  'Created at: $createdAt',
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                                Text(
-                                  'Updated at: $updatedAt',
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
+                    return ThemeCard(
+                        themeName: themeName,
+                        status: status,
+                        createdAt: createdAt,
+                        updatedAt: updatedAt);
                   },
                 ),
       floatingActionButton: FloatingActionButton(
