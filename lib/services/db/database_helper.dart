@@ -258,6 +258,23 @@ class DatabaseHelper {
     }
   }
 
+  Future<Map<String, dynamic>?> getActiveSystemTheme(int userID) async {
+    final db = await database;
+    // Query for the activated theme (status = 1)
+    List<Map<String, dynamic>> result = await db.query(
+      'system_theme',
+      where: 'usr_id = ? AND status = ?', // Adding the 'status = 1' condition
+      whereArgs: [userID, 1],
+      limit: 1, // Ensures only one record is returned
+    );
+
+    if (result.isNotEmpty) {
+      return result.first; // Return the first (and only) record
+    } else {
+      return null; // No active theme found
+    }
+  }
+
   Future<int> deleteTheme(int id) async {
     final db = await database;
     // Check if the database is writable
