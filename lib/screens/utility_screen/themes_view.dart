@@ -62,21 +62,53 @@ class _ThemesViewState extends State<ThemesView> {
                       child: Padding(
                         padding: EdgeInsets.all(16.sp),
                         child: Card(
-                          child: Center(
-                            child: ListTile(
-                              leading: Text('theme name: $themeName'),
-                              title: Text(
-                                // ignore: unrelated_type_equality_checks
-                                {status.toString()} == '1'
-                                    ? 'Active/In Use'
-                                    : 'Inactive/Not In Use',
-                              ),
-                              subtitle: Column(
-                                children: [
-                                  Text('created at: $createdAt'),
-                                  Text('updated at: $updatedAt'),
-                                ],
-                              ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          elevation: 4,
+                          shadowColor: Colors.grey.withOpacity(0.5),
+                          child: Padding(
+                            padding: EdgeInsets.all(16.sp),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Theme name: $themeName',
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                SizedBox(height: 1.h),
+                                Text(
+                                  status.toString() == '1'
+                                      ? 'Active'
+                                      : 'Inactive',
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w500,
+                                    color: status.toString() == '1'
+                                        ? Colors.green
+                                        : Colors.red,
+                                  ),
+                                ),
+                                SizedBox(height: 1.h),
+                                Text(
+                                  'Created at: $createdAt',
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                                Text(
+                                  'Updated at: $updatedAt',
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
