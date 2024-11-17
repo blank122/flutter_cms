@@ -57,6 +57,7 @@ class CustomDrawer extends StatelessWidget {
                         ),
                         trailing: const Icon(Icons.map),
                         onTap: () {
+                          Navigator.pop(context);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -92,6 +93,8 @@ class CustomDrawer extends StatelessWidget {
                         ),
                         trailing: const Icon(Icons.settings),
                         onTap: () {
+                          Navigator.pop(context);
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(
