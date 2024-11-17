@@ -4,10 +4,12 @@ class ThemeModel {
   String appBarColor;
   String bottomNavColor;
   String drawerColor;
+  String themeName;
   ThemeModel({
     required this.appBarColor,
     required this.bottomNavColor,
     required this.drawerColor,
+    required this.themeName,
   });
 
   Map<String, dynamic> toMap() {
@@ -15,6 +17,7 @@ class ThemeModel {
       'appBarColor': appBarColor,
       'bottomNavColor': bottomNavColor,
       'drawerColor': drawerColor,
+      'themeName': themeName,
     };
   }
 
@@ -23,6 +26,7 @@ class ThemeModel {
       appBarColor: map['appBarColor'] ?? '',
       bottomNavColor: map['bottomNavColor'] ?? '',
       drawerColor: map['drawerColor'] ?? '',
+      themeName: map['themeName'] ?? '',
     );
   }
 
@@ -32,6 +36,7 @@ class ThemeModel {
       ThemeModel.fromMap(json.decode(source));
 
   @override
-  String toString() =>
-      'ThemeModel(appBarColor: $appBarColor, bottomNavColor: $bottomNavColor, drawerColor: $drawerColor)';
+  String toString() {
+    return 'ThemeModel(appBarColor: $appBarColor, bottomNavColor: $bottomNavColor, drawerColor: $drawerColor, themeName: $themeName)';
+  }
 }

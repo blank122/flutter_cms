@@ -59,13 +59,9 @@ class _CreateThemesViewState extends State<CreateThemesView> {
                 }
 
                 // // Save the theme (replace this with your actual save logic)
-                // saveThemes(themeName);
+                saveThemes(themeNameController.text);
 
                 Navigator.of(context).pop(); // Close the dialog after saving
-                ReusableSnackbar.showSuccessSnackbar(
-                    context: context,
-                    description:
-                        "${themeNameController.text} has been saved successfully");
               },
               child: const Text("Save"),
             ),
@@ -87,7 +83,7 @@ class _CreateThemesViewState extends State<CreateThemesView> {
       if (mounted) {
         ReusableSnackbar.showSuccessSnackbar(
             context: context,
-            description: "Themes has been saved successfully");
+            description: "$themeTitle has been saved successfully");
       }
     } catch (e) {
       print('Error occurred: $e');
