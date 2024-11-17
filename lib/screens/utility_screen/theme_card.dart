@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:sizer/sizer.dart';
 
 class ThemeCard extends StatelessWidget {
@@ -61,11 +62,87 @@ class ThemeCard extends StatelessWidget {
                     color: Colors.black54,
                   ),
                 ),
+                Gap(0.8.h),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.blue, // Button color
+                    backgroundColor: Colors.white, // Text color
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      side: const BorderSide(
+                          color: Colors.blue, width: 1), // Border
+                    ),
+                  ),
+                  onPressed: () {
+                    _showConfirmationDialog(context);
+                  },
+                  child: Text(
+                    status.toString() == '1'
+                        ? 'Deactivate Theme'
+                        : 'Activate Theme',
+                    style: const TextStyle(
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  void _showConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            status.toString() == '1' ? 'Deactivate Theme' : 'Activate Theme',
+            style: TextStyle(
+              fontSize: 16.sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+          ),
+          content: Text(
+            status.toString() == '1'
+                ? 'Are you sure you want to deactivate this theme?'
+                : 'Are you sure you want to activate this theme?',
+            style: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Dismiss the dialog
+              },
+              child: Text('Cancel'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.blue, // Button color
+                backgroundColor: Colors.white, // Text color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  side:
+                      const BorderSide(color: Colors.blue, width: 1), // Border
+                ),
+              ),
+              onPressed: () {
+                // onActivate();
+                Navigator.of(context).pop(); // Dismiss the dialog
+              },
+              child: Text('Activate'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
