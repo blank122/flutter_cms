@@ -1,7 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_cms/services/color_dropdown.dart';
+import 'package:flutter_cms/services/db/database_helper.dart';
 import 'package:flutter_cms/widget/custom_app_bar.dart';
 import 'package:flutter_cms/widget/reusable_snackbar.dart';
 import 'package:gap/gap.dart';
@@ -82,6 +81,19 @@ class _CreateThemesViewState extends State<CreateThemesView> {
       // Save to SQLite
       developer.log(
           'data to be saved: $appBarColor, $drawerColor, $bottomNavColor, $themeTitle, $formattedDateTime');
+
+      final int result = await DatabaseHelper().saveThemes(
+          1,
+          themeTitle,
+          appBarColor,
+          bottomNavColor,
+          drawerColor,
+          0,
+          formattedDateTime,
+          formattedDateTime);
+
+      developer.log('Survey saved to SQLite with ID: $result');
+
       // Show success Snackbar
       if (mounted) {
         ReusableSnackbar.showSuccessSnackbar(
