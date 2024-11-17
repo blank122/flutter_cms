@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_cms/services/system_themes_services.dart';
 import 'package:flutter_cms/widget/custom_app_bar.dart';
 import 'package:gap/gap.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 
 class CreateSystemThemeView extends StatefulWidget {
@@ -16,8 +19,27 @@ class CreateSystemThemeView extends StatefulWidget {
 class _CreateSystemThemeViewState extends State<CreateSystemThemeView> {
   final SystemThemesServices systemServices = SystemThemesServices();
   final TextEditingController systemName = TextEditingController();
+  File? _pickedImage; // Variable to store the selected image file
+  final ImagePicker _picker = ImagePicker();
 
   bool isLoading = false;
+  // Function to pick an image from the gallery
+  Future<void> _pickImage() async {
+    try {
+      // Show the image picker dialog
+      final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        setState(() {
+          _pickedImage = File(pickedFile.path); // Save the selected image
+        });
+      } else {
+        // Handle case when no image is selected
+        print('No image selected');
+      }
+    } catch (e) {
+      print('Error picking image: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +64,26 @@ class _CreateSystemThemeViewState extends State<CreateSystemThemeView> {
               "App Logo",
               style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
             ),
-            Gap(1.h),
+            GestureDetector(
+              onTap: _pickImage, // Trigger the image picker on tap
+              child: _pickedImage == null
+                  ? Container(
+                      width: 100.w,
+                      height: 20.h,
+                      color: Colors.grey[200],
+                      child: Center(
+                        child: Icon(Icons.add_a_photo,
+                            size: 30.sp, color: Colors.grey),
+                      ),
+                    )
+                  : Image.file(
+                      _pickedImage!,
+                      width: 100.w,
+                      height: 20.h,
+                      fit: BoxFit.cover,
+                    ),
+            ),
+            Gap(2.h),
 
             Text(
               "App Title",
@@ -70,8 +111,8 @@ class _CreateSystemThemeViewState extends State<CreateSystemThemeView> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // systemServices.showSaveThemesDialog(
-                  //     context, systemNam, drawer, bottomNav);
+                  systemServices.showSaveThemesDialog(
+                      context, systemName.text, _pickedImage!.path);
                 },
                 child: const Text("Save Theme Settings"),
               ),
