@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cms/screens/utility_screen/create_system_theme_view.dart';
+import 'package:flutter_cms/screens/utility_screen/create_themes_view.dart';
 import 'package:flutter_cms/screens/utility_screen/theme_card.dart';
 import 'package:flutter_cms/services/db/database_helper.dart';
 import 'package:flutter_cms/widget/custom_app_bar.dart';
@@ -79,7 +79,7 @@ class _ThemesViewState extends State<ThemesView> {
             context,
             MaterialPageRoute(
               builder: (context) =>
-                  CreateSystemThemeView(appbarColor: widget.appBarColor),
+                  CreateThemesView(appbarColor: widget.appBarColor),
             ),
           );
         },
