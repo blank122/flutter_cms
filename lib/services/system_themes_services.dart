@@ -61,8 +61,8 @@ class SystemThemesServices {
     );
   }
 
-  Future<void> saveSystemTheme(String appBarColor, String drawerColor,
-      String bottomNavColor, String themeTitle, BuildContext context) async {
+  Future<void> saveSystemTheme(String themeName, String systemName,
+      String logoPath, String themeTitle, BuildContext context) async {
     try {
       // Convert survey data to JSON string
       DateTime now = DateTime.now();
@@ -70,17 +70,10 @@ class SystemThemesServices {
 
       // Save to SQLite
       developer.log(
-          'data to be saved: $appBarColor, $drawerColor, $bottomNavColor, $themeTitle, $formattedDateTime');
+          'data to be saved: $themeName, $systemName, $logoPath, $formattedDateTime, $formattedDateTime');
 
-      final int result = await DatabaseHelper().saveThemes(
-          1,
-          themeTitle,
-          appBarColor,
-          bottomNavColor,
-          drawerColor,
-          0,
-          formattedDateTime,
-          formattedDateTime);
+      final int result = await DatabaseHelper().saveSystemTheme(1, themeName,
+          systemName, logoPath, 1, formattedDateTime, formattedDateTime);
 
       developer.log('Survey saved to SQLite with ID: $result');
 
@@ -183,7 +176,7 @@ Future<void> updateStatusTheme(
 
     // Get the currently active theme
     List<Map<String, dynamic>> themes = await DatabaseHelper()
-        .getThemes(1); // Assuming `usr_id = 1` for simplicity.
+        .getSystemThemes(1); // Assuming `usr_id = 1` for simplicity.
     int? activeThemeID;
 
     // Check if there is already an active theme
@@ -204,7 +197,8 @@ Future<void> updateStatusTheme(
     // Save to SQLite
     developer.log('data to be update saved: $themeID, $status, $updatedDate');
 
-    final int result = await DatabaseHelper().useTheme(themeID, 1, updatedDate);
+    final int result =
+        await DatabaseHelper().useSystemTheme(themeID, status, updatedDate);
 
     developer.log('Survey saved to SQLite with ID: $result');
 
@@ -237,7 +231,8 @@ Future<void> deactivateStatusTheme(
     // Save to SQLite
     developer.log('data to be update saved: $themeID, $status, $updatedDate');
 
-    final int result = await DatabaseHelper().useTheme(themeID, 0, updatedDate);
+    final int result =
+        await DatabaseHelper().useSystemTheme(themeID, 0, updatedDate);
 
     developer.log('Survey saved to SQLite with ID: $result');
 

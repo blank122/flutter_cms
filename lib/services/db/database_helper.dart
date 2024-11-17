@@ -144,6 +144,7 @@ class DatabaseHelper {
     String name,
     String systemName,
     String systemLogoPath,
+    int status,
     String createdAt,
     String updatedAt,
   ) async {
@@ -155,6 +156,7 @@ class DatabaseHelper {
         'name': name,
         'system_name': systemName,
         'system_logo_path': systemLogoPath,
+        'status': status,
         'created_at': createdAt,
         'updated_at': updatedAt,
       },
@@ -187,6 +189,16 @@ class DatabaseHelper {
     final db = await database;
     return await db.update(
       'themes',
+      {'status': status, 'updated_at': updatedAt},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  Future<int> useSystemTheme(int id, int status, String updatedAt) async {
+    final db = await database;
+    return await db.update(
+      'system_themes',
       {'status': status, 'updated_at': updatedAt},
       where: 'id = ?',
       whereArgs: [id],
