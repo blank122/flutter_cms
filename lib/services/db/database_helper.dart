@@ -150,7 +150,7 @@ class DatabaseHelper {
   ) async {
     final db = await database;
     return await db.insert(
-      'system_themes',
+      'system_theme',
       {
         'usr_id': usrID,
         'name': name,
@@ -198,7 +198,7 @@ class DatabaseHelper {
   Future<int> useSystemTheme(int id, int status, String updatedAt) async {
     final db = await database;
     return await db.update(
-      'system_themes',
+      'system_theme',
       {'status': status, 'updated_at': updatedAt},
       where: 'id = ?',
       whereArgs: [id],
