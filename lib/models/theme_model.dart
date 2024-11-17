@@ -5,11 +5,18 @@ class ThemeModel {
   String bottomNavColor;
   String drawerColor;
   String themeName;
+  int status;
+  String createdAt;
+  String updatedAt;
+
   ThemeModel({
     required this.appBarColor,
     required this.bottomNavColor,
     required this.drawerColor,
     required this.themeName,
+    required this.status,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   Map<String, dynamic> toMap() {
@@ -18,6 +25,9 @@ class ThemeModel {
       'bottomNavColor': bottomNavColor,
       'drawerColor': drawerColor,
       'themeName': themeName,
+      'status': status,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
     };
   }
 
@@ -27,6 +37,9 @@ class ThemeModel {
       bottomNavColor: map['bottomNavColor'] ?? '',
       drawerColor: map['drawerColor'] ?? '',
       themeName: map['themeName'] ?? '',
+      status: map['status']?.toInt() ?? 0,
+      createdAt: map['createdAt'] ?? '',
+      updatedAt: map['updatedAt'] ?? '',
     );
   }
 
@@ -37,6 +50,6 @@ class ThemeModel {
 
   @override
   String toString() {
-    return 'ThemeModel(appBarColor: $appBarColor, bottomNavColor: $bottomNavColor, drawerColor: $drawerColor, themeName: $themeName)';
+    return 'ThemeModel(appBarColor: $appBarColor, bottomNavColor: $bottomNavColor, drawerColor: $drawerColor, themeName: $themeName, status: $status, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
