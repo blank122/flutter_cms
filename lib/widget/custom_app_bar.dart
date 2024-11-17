@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -13,7 +14,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       // backgroundColor: themeService.bottomNavBarColor,
-      title: Text(title),
+      title: Text(
+        title,
+        style: TextStyle(fontSize: 18.sp),
+      ),
     );
   }
 

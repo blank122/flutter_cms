@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cms/screens/create_themes_view.dart';
 import 'package:flutter_cms/screens/utility_screen/themes_view.dart';
 import 'package:flutter_cms/widget/location.dart';
 import 'package:gap/gap.dart';
 import 'package:sizer/sizer.dart';
 
 class CustomDrawer extends StatelessWidget {
+  //pass the drawer color
+  //pass appbar color
   const CustomDrawer({
     super.key,
   });
