@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cms/screens/create_themes_view.dart';
 import 'package:flutter_cms/services/db/database_helper.dart';
 import 'package:flutter_cms/widget/custom_app_bar.dart';
 import 'package:sizer/sizer.dart';
@@ -65,6 +66,7 @@ class _ThemesViewState extends State<ThemesView> {
                             child: ListTile(
                               leading: Text('theme name: $themeName'),
                               title: Text(
+                                // ignore: unrelated_type_equality_checks
                                 {status.toString()} == '1'
                                     ? 'Active/In Use'
                                     : 'Inactive/Not In Use',
@@ -82,6 +84,17 @@ class _ThemesViewState extends State<ThemesView> {
                     );
                   },
                 ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Navigate to CreateThemesView
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const CreateThemesView()),
+          );
+        },
+        tooltip: 'Add New Theme',
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
