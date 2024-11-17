@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_cms/services/color_dropdown.dart';
 import 'package:flutter_cms/widget/custom_app_bar.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_cms/widget/reusable_snackbar.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
+import 'dart:developer' as developer;
 
 class CreateThemesView extends StatefulWidget {
   const CreateThemesView({super.key});
@@ -58,7 +61,6 @@ class _CreateThemesViewState extends State<CreateThemesView> {
                   return;
                 }
 
-                // // Save the theme (replace this with your actual save logic)
                 saveThemes(themeNameController.text);
 
                 Navigator.of(context).pop(); // Close the dialog after saving
@@ -74,11 +76,16 @@ class _CreateThemesViewState extends State<CreateThemesView> {
   Future<void> saveThemes(String themeTitle) async {
     try {
       // Convert survey data to JSON string
-
+      final String jsonAppBarColor = jsonEncode(appBarColor);
+      final String jsonDrawerColor = jsonEncode(drawerColor);
+      final String jsonBottomNavColor = jsonEncode(bottomNavColor);
+      final String jsonThemeTitle = jsonEncode(themeTitle);
       DateTime now = DateTime.now();
       String formattedDateTime = DateFormat('MM/dd/yyyy HH:mm:ss').format(now);
-      // Save to SQLite
 
+      // Save to SQLite
+      developer.log(
+          'data to be saved: $jsonAppBarColor, $jsonDrawerColor, $jsonBottomNavColor, $jsonThemeTitle, $formattedDateTime');
       // Show success Snackbar
       if (mounted) {
         ReusableSnackbar.showSuccessSnackbar(
