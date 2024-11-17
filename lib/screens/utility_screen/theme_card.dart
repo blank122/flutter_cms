@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cms/services/change_themes.dart';
 import 'package:gap/gap.dart';
 import 'package:sizer/sizer.dart';
 
@@ -7,15 +8,21 @@ class ThemeCard extends StatelessWidget {
   final int status;
   final String createdAt;
   final String updatedAt;
+  final int themeID;
   const ThemeCard(
       {super.key,
       required this.themeName,
       required this.status,
       required this.createdAt,
-      required this.updatedAt});
+      required this.updatedAt,
+      required this.themeID});
+
+  //create a function here to save the value
 
   @override
   Widget build(BuildContext context) {
+    final ChangeThemes themesController = ChangeThemes();
+
     return SizedBox(
       child: Padding(
         padding: EdgeInsets.all(16.sp),
@@ -82,7 +89,8 @@ class ThemeCard extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    _showConfirmationDialog(context);
+                    themesController.showConfirmationDialog(
+                        context, status, themeID);
                   },
                   child: Text(
                     status.toString() == '1'
@@ -99,74 +107,6 @@ class ThemeCard extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  void _showConfirmationDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            status.toString() == '1' ? 'Deactivate Theme' : 'Activate Theme',
-            style: TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
-          ),
-          content: Text(
-            status.toString() == '1'
-                ? 'Are you sure you want to deactivate this theme?'
-                : 'Are you sure you want to activate this theme?',
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Dismiss the dialog
-              },
-              child: const Text('Cancel'),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                foregroundColor: status.toString() == '1'
-                    ? Colors.red
-                    : Colors.blue, // Text color
-                backgroundColor: status.toString() == '1'
-                    ? Colors.grey[200]
-                    : Colors.white, // Button color
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                  side: BorderSide(
-                    color: status.toString() == '1'
-                        ? Colors.red
-                        : Colors.blue, // Border color
-                    width: 1,
-                  ), // Border
-                ),
-              ),
-              onPressed: () {
-                // onActivate();
-                Navigator.of(context).pop(); // Dismiss the dialog
-              },
-              child: Text(
-                status.toString() == '1'
-                    ? 'Deactivate Theme'
-                    : 'Activate Theme',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: status.toString() == '1' ? Colors.red : Colors.blue,
-                ),
-              ),
-            ),
-          ],
-        );
-      },
     );
   }
 }

@@ -4,6 +4,8 @@ import 'package:flutter_cms/widget/reusable_snackbar.dart';
 import 'package:intl/intl.dart';
 import 'dart:developer' as developer;
 
+import 'package:sizer/sizer.dart';
+
 class ChangeThemes {
   Future<void> showSaveThemesDialog(BuildContext context, String appbar,
       String drawer, String bottomNav) async {
@@ -93,6 +95,107 @@ class ChangeThemes {
         ReusableSnackbar.showErrorSnackbar(
             context: context, description: "Something went wrong: $e");
       }
+    }
+  }
+
+  Future<void> showConfirmationDialog(
+      BuildContext context, int status, int themeID) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            status.toString() == '1' ? 'Deactivate Theme' : 'Activate Theme',
+            style: TextStyle(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+          ),
+          content: Text(
+            status.toString() == '1'
+                ? 'Are you sure you want to deactivate this theme?'
+                : 'Are you sure you want to activate this theme?',
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Dismiss the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: status.toString() == '1'
+                    ? Colors.red
+                    : Colors.blue, // Text color
+                backgroundColor: status.toString() == '1'
+                    ? Colors.grey[200]
+                    : Colors.white, // Button color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  side: BorderSide(
+                    color: status.toString() == '1'
+                        ? Colors.red
+                        : Colors.blue, // Border color
+                    width: 1,
+                  ), // Border
+                ),
+              ),
+              onPressed: () {
+                //function to activate the theme
+                // onActivate();
+                updateStatusTheme(status, themeID, context);
+                Navigator.of(context).pop(); // Dismiss the dialog
+              },
+              child: Text(
+                status.toString() == '1'
+                    ? 'Deactivate Theme'
+                    : 'Activate Theme',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: status.toString() == '1' ? Colors.red : Colors.blue,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}
+
+Future<void> updateStatusTheme(
+    int status, int themeID, BuildContext context) async {
+  try {
+    // Convert survey data to JSON string
+    DateTime now = DateTime.now();
+    String updatedDate = DateFormat('MM/dd/yyyy HH:mm:ss').format(now);
+
+    // Save to SQLite
+    developer.log('data to be update saved: $themeID, $status, $updatedDate');
+
+    final int result =
+        await DatabaseHelper().useTheme(themeID, status, updatedDate);
+
+    developer.log('Survey saved to SQLite with ID: $result');
+
+    // Show success Snackbar
+    if (context.mounted) {
+      ReusableSnackbar.showSuccessSnackbar(
+          context: context,
+          description: "$themeID has been saved successfully");
+    }
+  } catch (e) {
+    print('Error occurred: $e');
+    if (context.mounted) {
+      ReusableSnackbar.showErrorSnackbar(
+          context: context, description: "Something went wrong: $e");
     }
   }
 }

@@ -59,10 +59,12 @@ class _ThemesViewState extends State<ThemesView> {
                     final String updatedAt = survey['updated_at'];
 
                     return ThemeCard(
-                        themeName: themeName,
-                        status: status,
-                        createdAt: createdAt,
-                        updatedAt: updatedAt);
+                      themeName: themeName,
+                      status: status,
+                      createdAt: createdAt,
+                      updatedAt: updatedAt,
+                      themeID: survey['id'],
+                    );
                   },
                 ),
       floatingActionButton: FloatingActionButton(
