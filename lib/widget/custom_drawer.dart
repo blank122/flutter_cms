@@ -8,10 +8,12 @@ import 'package:sizer/sizer.dart';
 class CustomDrawer extends StatelessWidget {
   //pass the drawer color
   //pass appbar color
+  final Color appbarColor;
   final Color backgroundColor;
 
   const CustomDrawer({
     super.key,
+    required this.appbarColor,
     this.backgroundColor = Colors.white, // Default to white if not passed
   });
 
@@ -24,17 +26,18 @@ class CustomDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.all(16.sp),
         children: [
-          // DrawerHeader(
-          //   child: Padding(
-          //     padding: EdgeInsets.symmetric(horizontal: 8.0.sp),
-          //     child: Image.asset('assets/images/logo.png'), //same here
-          //   ),
-          // ),
+          //add a condition statement here
+          DrawerHeader(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.0.sp),
+              child: Image.asset('assets/images/logo.png'), //same here
+            ),
+          ),
           Gap(1.5.h),
           Padding(
             padding: EdgeInsets.all(8.0.sp),
             child: Text(
-              'Northern Iloilo State University', //dapat naa niy variable
+              'Northern Iloilo State University', //diri sd
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 18.sp,
@@ -110,7 +113,9 @@ class CustomDrawer extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ThemesView(),
+                              builder: (context) => ThemesView(
+                                appBarColor: appbarColor,
+                              ),
                             ),
                           );
                         },

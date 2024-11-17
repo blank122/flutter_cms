@@ -6,7 +6,9 @@ import 'package:gap/gap.dart';
 import 'package:sizer/sizer.dart';
 
 class CreateThemesView extends StatefulWidget {
-  const CreateThemesView({super.key});
+  //get the appbar color
+  final Color appbarColor;
+  const CreateThemesView({super.key, required this.appbarColor});
 
   @override
   State<CreateThemesView> createState() => _CreateThemesViewState();
@@ -26,6 +28,7 @@ class _CreateThemesViewState extends State<CreateThemesView> {
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Create Themes',
+        backgroundColor: widget.appbarColor,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

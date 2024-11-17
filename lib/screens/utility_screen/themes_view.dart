@@ -5,7 +5,8 @@ import 'package:flutter_cms/services/db/database_helper.dart';
 import 'package:flutter_cms/widget/custom_app_bar.dart';
 
 class ThemesView extends StatefulWidget {
-  const ThemesView({super.key});
+  final Color appBarColor;
+  const ThemesView({super.key, required this.appBarColor});
 
   @override
   State<ThemesView> createState() => _ThemesViewState();
@@ -40,7 +41,10 @@ class _ThemesViewState extends State<ThemesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: "Utility View"),
+      appBar: CustomAppBar(
+        title: "Utility View",
+        backgroundColor: widget.appBarColor,
+      ),
       body: isLoading
           ? const Center(
               child: CircularProgressIndicator(),
@@ -72,7 +76,10 @@ class _ThemesViewState extends State<ThemesView> {
           // Navigate to CreateThemesView
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const CreateThemesView()),
+            MaterialPageRoute(
+                builder: (context) => CreateThemesView(
+                      appbarColor: widget.appBarColor,
+                    )),
           );
         },
         tooltip: 'Add New Theme',

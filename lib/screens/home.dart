@@ -73,6 +73,7 @@ class _HomeState extends State<Home> {
         backgroundColor: appBarColor!,
       ),
       drawer: CustomDrawer(
+        appbarColor: appBarColor!,
         backgroundColor: drawerColor!,
       ), //pass the value of the drawer color, image, system title
       body: Column(
