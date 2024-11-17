@@ -7,14 +7,17 @@ import 'package:sizer/sizer.dart';
 class CustomDrawer extends StatelessWidget {
   //pass the drawer color
   //pass appbar color
+  final Color backgroundColor;
+
   const CustomDrawer({
     super.key,
+    this.backgroundColor = Colors.white, // Default to white if not passed
   });
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      // backgroundColor: Theme.of(context).drawerTheme.backgroundColor,
+      backgroundColor: backgroundColor,
       child: ListView(
         padding: EdgeInsets.all(16.sp),
         children: [

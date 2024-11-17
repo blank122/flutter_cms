@@ -3,18 +3,18 @@ import 'package:sizer/sizer.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  Color? backgroundColor;
+  final Color backgroundColor;
 
-  CustomAppBar({
+  const CustomAppBar({
     super.key,
     required this.title,
-    this.backgroundColor,
+    this.backgroundColor = Colors.white, // Default to white if not passed
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: backgroundColor ?? Colors.white,
+      backgroundColor: backgroundColor,
       title: Text(
         title,
         style: TextStyle(fontSize: 18.sp),
