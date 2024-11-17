@@ -76,16 +76,12 @@ class _CreateThemesViewState extends State<CreateThemesView> {
   Future<void> saveThemes(String themeTitle) async {
     try {
       // Convert survey data to JSON string
-      final String jsonAppBarColor = jsonEncode(appBarColor);
-      final String jsonDrawerColor = jsonEncode(drawerColor);
-      final String jsonBottomNavColor = jsonEncode(bottomNavColor);
-      final String jsonThemeTitle = jsonEncode(themeTitle);
       DateTime now = DateTime.now();
       String formattedDateTime = DateFormat('MM/dd/yyyy HH:mm:ss').format(now);
 
       // Save to SQLite
       developer.log(
-          'data to be saved: $jsonAppBarColor, $jsonDrawerColor, $jsonBottomNavColor, $jsonThemeTitle, $formattedDateTime');
+          'data to be saved: $appBarColor, $drawerColor, $bottomNavColor, $themeTitle, $formattedDateTime');
       // Show success Snackbar
       if (mounted) {
         ReusableSnackbar.showSuccessSnackbar(
