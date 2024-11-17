@@ -42,7 +42,7 @@ class _SystemViewState extends State<SystemView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: "Utility View",
+        title: "System Theme View",
         backgroundColor: widget.appBarColor,
       ),
       body: isLoading
@@ -51,7 +51,8 @@ class _SystemViewState extends State<SystemView> {
             )
           : themesData.isEmpty
               ? const Center(
-                  child: CircularProgressIndicator(),
+                  child:
+                      CircularProgressIndicator(), //change into no created system themes
                 )
               : ListView.builder(
                   itemCount: themesData.length,
@@ -68,6 +69,7 @@ class _SystemViewState extends State<SystemView> {
                       createdAt: createdAt,
                       updatedAt: updatedAt,
                       themeID: survey['id'],
+                      isSystemTheme: true,
                     );
                   },
                 ),

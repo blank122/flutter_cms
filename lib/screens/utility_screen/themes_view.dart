@@ -68,6 +68,7 @@ class _ThemesViewState extends State<ThemesView> {
                       createdAt: createdAt,
                       updatedAt: updatedAt,
                       themeID: survey['id'],
+                      isSystemTheme: false,
                     );
                   },
                 ),

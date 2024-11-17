@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cms/services/change_themes.dart';
+import 'package:flutter_cms/services/system_themes_services.dart';
+import 'package:flutter_cms/widget/theme_action_button.dart';
 import 'package:gap/gap.dart';
 import 'package:sizer/sizer.dart';
 
@@ -9,20 +11,25 @@ class ThemeCard extends StatelessWidget {
   final String createdAt;
   final String updatedAt;
   final int themeID;
-  const ThemeCard(
-      {super.key,
-      required this.themeName,
-      required this.status,
-      required this.createdAt,
-      required this.updatedAt,
-      required this.themeID});
+  final bool
+      isSystemTheme; // New flag to differentiate between regular theme and system theme
+
+  const ThemeCard({
+    super.key,
+    required this.themeName,
+    required this.status,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.themeID,
+    required this.isSystemTheme,
+  });
 
   //create a function here to save the value
 
   @override
   Widget build(BuildContext context) {
     final ChangeThemes themesController = ChangeThemes();
-
+    final SystemThemesServices systemThemesServices = SystemThemesServices();
     return SizedBox(
       child: Padding(
         padding: EdgeInsets.all(16.sp),
@@ -70,37 +77,16 @@ class ThemeCard extends StatelessWidget {
                   ),
                 ),
                 Gap(0.8.h),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: status.toString() == '1'
-                        ? Colors.red
-                        : Colors.blue, // Text color
-                    backgroundColor: status.toString() == '1'
-                        ? Colors.grey[200]
-                        : Colors.white, // Button color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(
-                        color: status.toString() == '1'
-                            ? Colors.red
-                            : Colors.blue, // Border color
-                        width: 1,
-                      ), // Border
-                    ),
-                  ),
-                  onPressed: () {
-                    themesController.showConfirmationDialog(
-                        context, status, themeID);
-                  },
-                  child: Text(
-                    status.toString() == '1'
-                        ? 'Deactivate Theme'
-                        : 'Activate Theme',
-                    style: const TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
+                ThemeActionButton(
+                  status: status,
+                  themeID: themeID,
+                  showConfirmationDialog: isSystemTheme
+                      ? systemThemesServices.showConfirmationDialog
+                      : themesController.showConfirmationDialog,
+                  activeText: 'Deactivate Theme',
+                  inactiveText: 'Activate Theme',
+                  activeColor: Colors.red,
+                  inactiveColor: Colors.blue,
                 ),
               ],
             ),
