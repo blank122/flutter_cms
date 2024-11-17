@@ -94,7 +94,7 @@ class DatabaseHelper {
       'themes',
       {
         'usr_id': usrID,
-        'name': name,
+        'theme_name': name,
         'app_bar_color': appBarColor,
         'bottom_nav_bar_color': bottomNavColor,
         'drawer_color': drawerColor,
