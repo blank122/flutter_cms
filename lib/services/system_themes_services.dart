@@ -8,8 +8,8 @@ import 'dart:developer' as developer;
 import 'package:sizer/sizer.dart';
 
 class SystemThemesServices {
-  Future<void> showSaveThemesDialog(BuildContext context, String appbar,
-      String drawer, String bottomNav) async {
+  Future<void> showSaveThemesDialog(
+      BuildContext context, String systemName, String logoPath) async {
     final TextEditingController themeNameController = TextEditingController();
 
     await showDialog<void>(
@@ -49,8 +49,8 @@ class SystemThemesServices {
                   return;
                 }
 
-                saveSystemTheme(appbar, drawer, bottomNav,
-                    themeNameController.text, context);
+                saveSystemTheme(
+                    themeNameController.text, systemName, logoPath, context);
                 Navigator.of(context).pop(); // Close the dialog after saving
               },
               child: const Text("Save"),
@@ -61,8 +61,8 @@ class SystemThemesServices {
     );
   }
 
-  Future<void> saveSystemTheme(String themeName, String systemName,
-      String logoPath, String themeTitle, BuildContext context) async {
+  Future<void> saveSystemTheme(String themTitle, String systemName,
+      String logoPath, BuildContext context) async {
     try {
       // Convert survey data to JSON string
       DateTime now = DateTime.now();
@@ -70,9 +70,9 @@ class SystemThemesServices {
 
       // Save to SQLite
       developer.log(
-          'data to be saved: $themeName, $systemName, $logoPath, $formattedDateTime, $formattedDateTime');
+          'data to be saved: $themTitle, $systemName, $logoPath, $formattedDateTime, $formattedDateTime');
 
-      final int result = await DatabaseHelper().saveSystemTheme(1, themeName,
+      final int result = await DatabaseHelper().saveSystemTheme(1, themTitle,
           systemName, logoPath, 1, formattedDateTime, formattedDateTime);
 
       developer.log('Survey saved to SQLite with ID: $result');
@@ -81,7 +81,7 @@ class SystemThemesServices {
       if (context.mounted) {
         ReusableSnackbar.showSuccessSnackbar(
             context: context,
-            description: "$themeTitle has been saved successfully");
+            description: "$themTitle has been saved successfully");
       }
     } catch (e) {
       print('Error occurred: $e');
