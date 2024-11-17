@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cms/global/get_text_color.dart';
 import 'package:flutter_cms/screens/utility_screen/themes_view.dart';
 import 'package:flutter_cms/widget/location.dart';
 import 'package:gap/gap.dart';
@@ -16,6 +17,8 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color textColor = getTextColor(backgroundColor);
+
     return Drawer(
       backgroundColor: backgroundColor,
       child: ListView(
@@ -34,9 +37,9 @@ class CustomDrawer extends StatelessWidget {
               'Northern Iloilo State University', //dapat naa niy variable
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 18.sp,
-                fontWeight: FontWeight.bold,
-              ),
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                  color: textColor),
             ),
           ),
           Padding(
@@ -46,19 +49,22 @@ class CustomDrawer extends StatelessWidget {
               children: [
                 Text(
                   "User",
-                  style:
-                      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                      color: textColor),
                 ),
                 Padding(
                   padding: EdgeInsets.all(8.0.sp),
                   child: Column(
                     children: [
                       ListTile(
-                        title: const Text(
+                        title: Text(
                           "Location",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: textColor),
                         ),
-                        trailing: const Icon(Icons.map),
+                        trailing: Icon(Icons.map, color: textColor),
                         onTap: () {
                           Navigator.pop(context);
                           Navigator.push(
@@ -82,19 +88,22 @@ class CustomDrawer extends StatelessWidget {
               children: [
                 Text(
                   "More actions",
-                  style:
-                      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                      color: textColor),
                 ),
                 Padding(
                   padding: EdgeInsets.all(8.0.sp),
                   child: Column(
                     children: [
                       ListTile(
-                        title: const Text(
+                        title: Text(
                           "Utility",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: textColor),
                         ),
-                        trailing: const Icon(Icons.settings),
+                        trailing: Icon(Icons.settings, color: textColor),
                         onTap: () {
                           Navigator.pop(context);
 

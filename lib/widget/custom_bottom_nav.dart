@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cms/global/get_text_color.dart';
 
 class CustomBottomNav extends StatelessWidget {
   final Color backgroundColor;
@@ -10,11 +11,26 @@ class CustomBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color textColor = getTextColor(backgroundColor);
+
     return BottomNavigationBar(
       backgroundColor: backgroundColor,
-      items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+      selectedItemColor: textColor, // Label color for selected item
+      unselectedItemColor:
+          textColor.withOpacity(0.6), // Label color for unselected items
+      items: [
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home,
+              color: textColor,
+            ),
+            label: 'Home'),
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.settings,
+              color: textColor,
+            ),
+            label: 'Settings'),
       ],
     );
   }

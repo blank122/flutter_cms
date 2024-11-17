@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cms/global/get_text_color.dart';
 import 'package:sizer/sizer.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -13,11 +14,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color textColor = getTextColor(backgroundColor);
+
     return AppBar(
       backgroundColor: backgroundColor,
       title: Text(
         title,
-        style: TextStyle(fontSize: 18.sp),
+        style: TextStyle(fontSize: 18.sp, color: textColor),
       ),
     );
   }
