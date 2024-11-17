@@ -181,6 +181,26 @@ Future<void> updateStatusTheme(
     DateTime now = DateTime.now();
     String updatedDate = DateFormat('MM/dd/yyyy HH:mm:ss').format(now);
 
+    // Get the currently active theme
+    List<Map<String, dynamic>> themes = await DatabaseHelper()
+        .getThemes(1); // Assuming `usr_id = 1` for simplicity.
+    int? activeThemeID;
+
+    // Check if there is already an active theme
+    for (var theme in themes) {
+      if (theme['status'] == 1) {
+        activeThemeID = theme['id'];
+        break;
+      }
+    }
+
+    // If there is an active theme, deactivate it
+    if (activeThemeID != null && activeThemeID != themeID) {
+      await DatabaseHelper().useTheme(
+          activeThemeID, 0, updatedDate); // Deactivate the previous theme
+      developer.log('Deactivated previous theme: $activeThemeID');
+    }
+
     // Save to SQLite
     developer.log('data to be update saved: $themeID, $status, $updatedDate');
 
