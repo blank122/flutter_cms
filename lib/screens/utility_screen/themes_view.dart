@@ -15,6 +15,12 @@ class _ThemesViewState extends State<ThemesView> {
 
   bool isLoading = true;
 
+  @override
+  void initState() {
+    super.initState();
+    loadThemes();
+  }
+
   Future<void> loadThemes() async {
     try {
       final surveys = await DatabaseHelper().getThemes(1);
@@ -47,9 +53,9 @@ class _ThemesViewState extends State<ThemesView> {
                   itemBuilder: (context, index) {
                     final survey = themesData[index];
                     final String themeName = survey['theme_name'];
-                    final String status = survey['status'];
-                    final String createdAt = survey['createdAt'];
-                    final String updatedAt = survey['createdAt'];
+                    final int status = survey['status'];
+                    final String createdAt = survey['created_at'];
+                    final String updatedAt = survey['updated_at'];
 
                     return SizedBox(
                       child: Padding(
@@ -59,7 +65,7 @@ class _ThemesViewState extends State<ThemesView> {
                             child: ListTile(
                               leading: Text('theme name: $themeName'),
                               title: Text(
-                                status == '1'
+                                {status.toString()} == '1'
                                     ? 'Active/In Use'
                                     : 'Inactive/Not In Use',
                               ),

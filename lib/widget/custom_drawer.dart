@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cms/screens/create_themes_view.dart';
+import 'package:flutter_cms/screens/utility_screen/themes_view.dart';
 import 'package:flutter_cms/widget/location.dart';
 import 'package:gap/gap.dart';
 import 'package:sizer/sizer.dart';
@@ -85,7 +86,7 @@ class CustomDrawer extends StatelessWidget {
                     children: [
                       ListTile(
                         title: const Text(
-                          "Themes",
+                          "Utility",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         trailing: const Icon(Icons.settings),
@@ -93,7 +94,7 @@ class CustomDrawer extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const CreateThemesView(),
+                              builder: (context) => const ThemesView(),
                             ),
                           );
                         },
