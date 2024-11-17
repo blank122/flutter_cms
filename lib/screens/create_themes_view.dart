@@ -18,19 +18,6 @@ class _CreateThemesViewState extends State<CreateThemesView> {
   String drawerColor = 'White';
   String bottomNavColor = 'White';
   bool isLoading = false;
-  void saveThemeSettings(String appBar, String drawer, String bottomNav) {
-    // Display a snackbar to show saved settings
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          "Theme settings saved! AppBar: $appBar, Drawer: $drawer, Bottom Nav: $bottomNav",
-        ),
-      ),
-    );
-
-    // Here you can add code to save the settings in SQLite or any other local storage
-  }
-
   Future<void> showSaveThemesDialog(BuildContext context) async {
     final TextEditingController themeNameController = TextEditingController();
 
@@ -65,9 +52,9 @@ class _CreateThemesViewState extends State<CreateThemesView> {
                 final themeName = themeNameController.text.trim();
                 if (themeName.isEmpty) {
                   // Optionally show a warning if the theme name is empty
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Please enter a theme name!")),
-                  );
+                  ReusableSnackbar.showErrorSnackbar(
+                      context: context,
+                      description: "Please enter a theme name");
                   return;
                 }
 
@@ -75,10 +62,10 @@ class _CreateThemesViewState extends State<CreateThemesView> {
                 // saveThemes(themeName);
 
                 Navigator.of(context).pop(); // Close the dialog after saving
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                      content: Text("Theme '$themeName' saved successfully!")),
-                );
+                ReusableSnackbar.showSuccessSnackbar(
+                    context: context,
+                    description:
+                        "${themeNameController.text} has been saved successfully");
               },
               child: const Text("Save"),
             ),
