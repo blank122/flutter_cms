@@ -26,8 +26,16 @@ class DatabaseHelper {
 
     return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: _onCreate,
+      onUpgrade: (db, oldVersion, newVersion) async {
+        if (oldVersion < 2) {
+          // Add the new column if the database is being upgraded to version 2
+          await db.execute('''
+          ALTER TABLE system_theme ADD COLUMN status INT NOT NULL
+        ''');
+        }
+      },
     );
   }
 
