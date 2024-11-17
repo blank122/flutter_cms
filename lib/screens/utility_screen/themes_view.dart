@@ -40,7 +40,7 @@ class _ThemesViewState extends State<ThemesView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: "Utility View"),
+      appBar: CustomAppBar(title: "Utility View"),
       body: isLoading
           ? const Center(
               child: CircularProgressIndicator(),

@@ -24,7 +24,7 @@ class _CreateThemesViewState extends State<CreateThemesView> {
   Widget build(BuildContext context) {
     // Default color for Bottom Navigation Bar
     return Scaffold(
-      appBar: const CustomAppBar(
+      appBar: CustomAppBar(
         title: 'Create Themes',
       ),
       body: Column(

@@ -17,7 +17,20 @@ class _HomeState extends State<Home> {
   //create a function to load all the themes
   //then pass all the value to each widgets that need its value
   Map<String, dynamic>? activeTheme;
+  Color? appBarColor;
+  Color? drawerColor;
+  Color? bottomNavColor;
 
+  Map<String, Color> bootstrapColors = {
+    'Blue': const Color(0xFF007BFF),
+    'Gray': const Color(0xFF6C757D),
+    'Green': const Color(0xFF28A745),
+    'Cyan': const Color(0xFF17A2B8),
+    'Red': const Color(0xFFDC3545),
+    'Black': const Color(0xFF343A40),
+    'White': const Color(0xFFFFFFFF),
+    'Yellow': const Color(0xFFFFC107),
+  };
   @override
   void initState() {
     super.initState();
@@ -32,6 +45,19 @@ class _HomeState extends State<Home> {
 
       setState(() {
         activeTheme = theme;
+
+        String appbarTheme =
+            theme!['app_bar_color']; // Assuming 'name' holds the theme name
+        String drawerTheme =
+            theme['drawer_color']; // Assuming 'name' holds the theme name
+        String bottomNavTheme = theme[
+            'bottom_nav_bar_color']; // Assuming 'name' holds the theme name
+
+        appBarColor = bootstrapColors[
+            appbarTheme]; // Get the color based on the theme name
+        drawerColor = bootstrapColors[
+            drawerTheme]; // Get the color based on the theme name
+        bottomNavColor = bootstrapColors[bottomNavTheme];
       });
     } catch (e) {
       // Handle any errors here, maybe show a Snackbar or a message
@@ -42,7 +68,10 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: "Home"),
+      appBar: CustomAppBar(
+        title: "Home",
+        backgroundColor: appBarColor,
+      ),
       drawer:
           const CustomDrawer(), //pass the value of the drawer color, image, system title
       body: Column(
