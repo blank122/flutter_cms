@@ -65,12 +65,20 @@ class ThemeCard extends StatelessWidget {
                 Gap(0.8.h),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.blue, // Button color
-                    backgroundColor: Colors.white, // Text color
+                    foregroundColor: status.toString() == '1'
+                        ? Colors.red
+                        : Colors.blue, // Text color
+                    backgroundColor: status.toString() == '1'
+                        ? Colors.grey[200]
+                        : Colors.white, // Button color
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
-                      side: const BorderSide(
-                          color: Colors.blue, width: 1), // Border
+                      side: BorderSide(
+                        color: status.toString() == '1'
+                            ? Colors.red
+                            : Colors.blue, // Border color
+                        width: 1,
+                      ), // Border
                     ),
                   ),
                   onPressed: () {
@@ -102,7 +110,7 @@ class ThemeCard extends StatelessWidget {
           title: Text(
             status.toString() == '1' ? 'Deactivate Theme' : 'Activate Theme',
             style: TextStyle(
-              fontSize: 16.sp,
+              fontSize: 20.sp,
               fontWeight: FontWeight.bold,
               color: Colors.black87,
             ),
@@ -112,7 +120,7 @@ class ThemeCard extends StatelessWidget {
                 ? 'Are you sure you want to deactivate this theme?'
                 : 'Are you sure you want to activate this theme?',
             style: TextStyle(
-              fontSize: 12.sp,
+              fontSize: 14.sp,
               fontWeight: FontWeight.bold,
               color: Colors.black87,
             ),
@@ -122,23 +130,39 @@ class ThemeCard extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop(); // Dismiss the dialog
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.blue, // Button color
-                backgroundColor: Colors.white, // Text color
+                foregroundColor: status.toString() == '1'
+                    ? Colors.red
+                    : Colors.blue, // Text color
+                backgroundColor: status.toString() == '1'
+                    ? Colors.grey[200]
+                    : Colors.white, // Button color
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
-                  side:
-                      const BorderSide(color: Colors.blue, width: 1), // Border
+                  side: BorderSide(
+                    color: status.toString() == '1'
+                        ? Colors.red
+                        : Colors.blue, // Border color
+                    width: 1,
+                  ), // Border
                 ),
               ),
               onPressed: () {
                 // onActivate();
                 Navigator.of(context).pop(); // Dismiss the dialog
               },
-              child: Text('Activate'),
+              child: Text(
+                status.toString() == '1'
+                    ? 'Deactivate Theme'
+                    : 'Activate Theme',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: status.toString() == '1' ? Colors.red : Colors.blue,
+                ),
+              ),
             ),
           ],
         );
