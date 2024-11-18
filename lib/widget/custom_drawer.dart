@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cms/global/get_text_color.dart';
-import 'package:flutter_cms/screens/utility_screen/themes_view.dart';
+import 'package:flutter_cms/screens/utility_screen/themes/themes_view.dart';
 import 'package:flutter_cms/widget/location.dart';
 import 'package:gap/gap.dart';
 import 'package:sizer/sizer.dart';
