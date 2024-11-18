@@ -17,9 +17,14 @@ class _HomeState extends State<Home> {
   //create a function to load all the themes
   //then pass all the value to each widgets that need its value
   Map<String, dynamic>? activeTheme;
+  Map<String, dynamic>? activeSystemTheme;
+
   Color? appBarColor;
   Color? drawerColor;
   Color? bottomNavColor;
+
+  String? appName;
+  String? appFilePath;
 
   Map<String, Color> bootstrapColors = {
     'Blue': const Color(0xFF007BFF),
@@ -35,6 +40,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     _loadActiveTheme();
+    _loadActiveSystemTheme();
   }
 
   // Function to load the active theme from the database
@@ -65,6 +71,23 @@ class _HomeState extends State<Home> {
     }
   }
 
+  Future<void> _loadActiveSystemTheme() async {
+    try {
+      // Fetch the active theme for the user
+      Map<String, dynamic>? theme =
+          await DatabaseHelper().getActiveSystemTheme(1);
+
+      setState(() {
+        activeSystemTheme = theme;
+        appName = theme!['system_name'];
+        appFilePath = theme['system_logo_path'];
+      });
+    } catch (e) {
+      // Handle any errors here, maybe show a Snackbar or a message
+      print('Error fetching active theme: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,6 +98,8 @@ class _HomeState extends State<Home> {
       drawer: CustomDrawer(
         appbarColor: appBarColor ?? Colors.white,
         backgroundColor: drawerColor ?? Colors.white,
+        systemName: appName ?? "Northern Iloilo State University",
+        systemLogo: appFilePath ?? '',
       ), //pass the value of the drawer color, image, system title
       body: Column(
         children: [

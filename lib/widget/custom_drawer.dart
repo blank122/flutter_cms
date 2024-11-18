@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_cms/global/get_text_color.dart';
 import 'package:flutter_cms/screens/utility_screen/utility_screen.dart';
@@ -10,11 +12,15 @@ class CustomDrawer extends StatelessWidget {
   //pass appbar color
   final Color appbarColor;
   final Color backgroundColor;
+  final String systemName;
+  final String systemLogo;
 
   const CustomDrawer({
     super.key,
     required this.appbarColor,
-    this.backgroundColor = Colors.white, // Default to white if not passed
+    required this.backgroundColor,
+    required this.systemName,
+    required this.systemLogo,
   });
 
   @override
@@ -30,14 +36,19 @@ class CustomDrawer extends StatelessWidget {
           DrawerHeader(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0.sp),
-              child: Image.asset('assets/images/logo.png'), //same here
+              child: Image.file(
+                File(systemLogo),
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.asset('assets/images/logo.png');
+                },
+              ), //same here
             ),
           ),
           Gap(1.5.h),
           Padding(
             padding: EdgeInsets.all(8.0.sp),
             child: Text(
-              'Northern Iloilo State University', //diri sd
+              systemName,
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontSize: 18.sp,
