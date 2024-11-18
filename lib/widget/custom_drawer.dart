@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cms/global/get_text_color.dart';
-import 'package:flutter_cms/screens/utility_screen/themes/themes_view.dart';
+import 'package:flutter_cms/screens/utility_screen/utility_screen.dart';
 import 'package:flutter_cms/widget/location.dart';
 import 'package:gap/gap.dart';
 import 'package:sizer/sizer.dart';
@@ -113,9 +113,8 @@ class CustomDrawer extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ThemesView(
-                                appBarColor: appbarColor,
-                              ),
+                              builder: (context) =>
+                                  UtilityScreen(appBarTheme: appbarColor),
                             ),
                           );
                         },
