@@ -55,7 +55,7 @@ class _SystemViewState extends State<SystemView> {
                   child: SomethingWentWrong(
                       title: "No System theme found.",
                       description:
-                          "Please Create a Theme First"), //change into no created system themes
+                          "Please Create a System Theme First"), //change into no created system themes
                 )
               : ListView.builder(
                   itemCount: themesData.length,

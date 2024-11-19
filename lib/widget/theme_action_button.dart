@@ -10,7 +10,7 @@ class ThemeActionButton extends StatelessWidget {
   final Color inactiveColor;
 
   const ThemeActionButton({
-    Key? key,
+    super.key,
     required this.status,
     required this.themeID,
     required this.showConfirmationDialog,
@@ -18,7 +18,7 @@ class ThemeActionButton extends StatelessWidget {
     required this.inactiveText,
     required this.activeColor,
     required this.inactiveColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

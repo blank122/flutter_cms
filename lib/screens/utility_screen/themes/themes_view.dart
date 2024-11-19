@@ -3,6 +3,7 @@ import 'package:flutter_cms/screens/utility_screen/themes/create_themes_view.dar
 import 'package:flutter_cms/screens/utility_screen/theme_card.dart';
 import 'package:flutter_cms/services/db/database_helper.dart';
 import 'package:flutter_cms/widget/custom_app_bar.dart';
+import 'package:flutter_cms/widget/something_went_wrong.dart';
 
 class ThemesView extends StatefulWidget {
   final Color appBarColor;
@@ -51,7 +52,10 @@ class _ThemesViewState extends State<ThemesView> {
             )
           : themesData.isEmpty
               ? const Center(
-                  child: CircularProgressIndicator(),
+                  child: SomethingWentWrong(
+                      title: "No Theme found.",
+                      description:
+                          "Please Create a Theme First"), //change into no created system themes
                 )
               : ListView.builder(
                   itemCount: themesData.length,
