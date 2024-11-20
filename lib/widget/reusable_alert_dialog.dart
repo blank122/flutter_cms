@@ -9,14 +9,14 @@ class ReusableAlertDialog extends StatelessWidget {
   final VoidCallback? onSecondaryButtonPressed;
 
   const ReusableAlertDialog({
-    Key? key,
+    super.key,
     required this.title,
     required this.description,
     required this.primaryButtonText,
     required this.onPrimaryButtonPressed,
     required this.secondaryButtonText,
     this.onSecondaryButtonPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

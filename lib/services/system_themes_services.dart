@@ -116,7 +116,7 @@ class SystemThemesServices {
               color: Colors.black87,
             ),
           ),
-          actions: <Widget>[
+          actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Dismiss the dialog
